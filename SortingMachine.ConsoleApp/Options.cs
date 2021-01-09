@@ -39,7 +39,8 @@ namespace SortingMachine.ConsoleApp
                     {
                         ConsoleKey.B => new BubbleSort(),
                         ConsoleKey.S => new SelectionSort(),
-                        ConsoleKey.I => new InsertionSort()
+                        ConsoleKey.I => new InsertionSort(),
+                        ConsoleKey.M => new MergeSort()
                     };
                 }
                 catch (Exception ex)
