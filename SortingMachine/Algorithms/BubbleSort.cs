@@ -19,7 +19,7 @@ namespace SortingMachine.Algorithms
 
                     if (Data[currentIndex] > Data[nextIndex])
                     {
-                        ExchangeData(currentIndex, nextIndex);
+                        ExchangeData(currentIndex, nextIndex, Data[nextIndex]);
                     }
                 }
             }

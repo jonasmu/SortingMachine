@@ -17,7 +17,7 @@
 
                     if (Data[currentIndex] < Data[previousIndex])
                     {
-                        ExchangeData(currentIndex, previousIndex);
+                        ExchangeData(currentIndex, previousIndex, Data[previousIndex]);
                     }
                 }
             }

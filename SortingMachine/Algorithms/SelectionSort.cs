@@ -13,7 +13,7 @@
 
                 if (currentIndex != minValueIndex)
                 {
-                    ExchangeData(currentIndex, minValueIndex);
+                    ExchangeData(currentIndex, minValueIndex, Data[minValueIndex]);
                 }
             }
         }

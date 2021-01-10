@@ -10,71 +10,59 @@ namespace SortingMachine.Algorithms
 
         protected internal override void Perform()
         {
-            int[] compareData = CreateCompareData();
             Position position = new Position
             {
                 Begin = 0,
                 Middle = Data.Length / 2,
                 End = Data.Length
             };
-            SplitSortData(Data, compareData, position);
+            SplitSortData(position);
         }
 
-        private void SplitSortData(int[] data, int[] compareData, Position position)
+        private void SplitSortData(Position position)
         {
             if (position.End - position.Begin <= 1)
                 return;
-            SplitSortData(compareData, data,
-                new Position
+            SplitSortData(new Position
                 {
                     Begin = position.Begin,
                     Middle = (position.Begin + position.Middle) / 2,
                     End = position.Middle
                 }); // Divide parte izquierda de array
-            SplitSortData(compareData, data,
-                new Position
+            SplitSortData(new Position
                 {
                     Begin = position.Middle,
                     Middle = (position.End + position.Middle) / 2,
                     End = position.End
                 }); // Divide parte derecha de array
-            MergeData(data, compareData, position);
+            MergeData(position);
         }
 
-        private void MergeData(int[] data, int[] compareData, Position position)
+        private void MergeData(Position position)
         {
             int initialIndex = position.Begin;
             int compareIndex = position.Middle;
+            int[] dataCompare = (int[])Data.Clone();
 
             for (int index = position.Begin; index < position.End; index++)
             {
+                ComputeCurrentOperation(index);
                 if (compareIndex >= position.End)
                 {
-                    data[index] = compareData[initialIndex];
+                    ExchangeData(index, initialIndex, dataCompare[initialIndex]);
                     initialIndex++;
-                    continue;
                 } 
-                if (initialIndex < position.Middle && compareData[initialIndex] < compareData[compareIndex]) 
+                else if (initialIndex < position.Middle && dataCompare[initialIndex] < dataCompare[compareIndex]) 
                 {
-                    data[index] = compareData[initialIndex];
+                    ExchangeData(index, initialIndex, dataCompare[initialIndex]);
                     initialIndex++;
                 }
                 else
                 {
-                    data[index] = compareData[compareIndex];
+                    ExchangeData(index, compareIndex, dataCompare[compareIndex]);
                     compareIndex++;
                 }
-                ComputeCurrentOperation(index);
             }
-        }
-
-        private int[] CreateCompareData()
-        {
-            int dataLength = Data.Length;
-            int[] compareData = new int[dataLength];
-            for (int dataIndex = 0; dataIndex < dataLength; dataIndex++)
-                compareData[dataIndex] = Data[dataIndex];
-            return compareData;
         }
 
         private class Position

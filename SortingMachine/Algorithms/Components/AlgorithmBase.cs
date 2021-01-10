@@ -33,15 +33,16 @@ namespace SortingMachine.Algorithms
             Operating?.Invoke(this, Data[currentIndex]);
         }
 
-        protected internal void ExchangeData(int currentIndex, int exchangeIndex)
+        protected internal void ExchangeData(int currentIndex, int exchangeIndex, int exchangeValue)
         {
             _exchangingEventArgs.CurrentItem = Data[currentIndex];
-            _exchangingEventArgs.ExchangedItem = Data[exchangeIndex];
+            _exchangingEventArgs.ExchangedItem = exchangeValue;
             Exchanging?.Invoke(this, _exchangingEventArgs);
 
             var temporary = Data[currentIndex];
-            Data[currentIndex] = Data[exchangeIndex];
-            Data[exchangeIndex] = temporary;
+            Data[currentIndex] = exchangeValue;
+            if (Data[exchangeIndex] == exchangeValue)
+                Data[exchangeIndex] = temporary;
 
             _exchangeEventArgs.CurrentItem = Data[currentIndex];
             _exchangeEventArgs.ExchangedItem = Data[exchangeIndex];
